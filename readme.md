@@ -17,4 +17,4 @@
 ## İletişim
 
 - [Discord]( https://discord.gg/dcbot "Void")
-- [Larex#0001](http://discord.com/users/752910734748549161 "Larex#0001") & [Sentinel#7777](http://discord.com/users/690954493675700485 "Sentinel#0003")
+- [Larex#0001](http://discord.com/users/752910734748549161 "Larex#0001") & [Sentinel#0003](http://discord.com/users/690954493675700485 "Sentinel#0003")
