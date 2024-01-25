@@ -172,6 +172,6 @@ app.listen(port, () => {
   console.log(`Sunucu ${port} numaralı bağlantı noktasında yürütülüyor.`);
 });
 
-client.login(token);
+client.login(process.evn.token);
 
 // VOİD
