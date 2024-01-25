@@ -1,6 +1,6 @@
 const { Client, IntentsBitField } = require("discord.js");
 const { Configuration, OpenAIApi } = require("openai");
-const { token, apikey, channelid } = require("./config.json");
+const { apikey, channelid } = require("./config.json");
 const chalk = require("chalk");
 
 const client = new Client({
