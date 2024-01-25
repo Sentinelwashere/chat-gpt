@@ -1,7 +1,8 @@
-const { Client, IntentsBitField } = require('discord.js');
-const { Configuration, OpenAIApi } = require('openai');
-const { token, apikey, channelid } = require("./config.json")
-const chalk = require("chalk")
+const { Client, IntentsBitField } = require("discord.js");
+const { Configuration, OpenAIApi } = require("openai");
+const { token, apikey, channelid } = require("./config.json");
+const chalk = require("chalk");
+const keep_alive = require("./keep_alive.js");
 
 const client = new Client({
   intents: [
@@ -10,25 +11,25 @@ const client = new Client({
     IntentsBitField.Flags.MessageContent,
   ],
 });
-client.on('ready', () => {
+client.on("ready", () => {
   console.log(chalk.red`[START]` + ` Bot Aktif`);
 });
 
-client.on('ready', ()=> {
-  client.user.setActivity(`Void | ChatGpt`)
-})
+client.on("ready", () => {
+  client.user.setActivity("**FSE KLANS İyi Oyunlar Diler.");
+});
 
 const configuration = new Configuration({
   apiKey: apikey,
 });
 const openai = new OpenAIApi(configuration);
 
-client.on('messageCreate', async (message) => {
+client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (message.channel.id !== channelid) return;
-  if (message.content.startsWith('!')) return;
+  if (message.content.startsWith("!")) return;
 
-  let conversationLog = [{ role: 'system', content: 'tatlış bot.' }];
+  let conversationLog = [{ role: "system", content: "FSE KLANS Bot" }];
 
   try {
     await message.channel.sendTyping();
@@ -37,21 +38,20 @@ client.on('messageCreate', async (message) => {
     prevMessages.reverse();
 
     prevMessages.forEach((msg) => {
-      if (message.content.startsWith('!')) return;
+      if (message.content.startsWith("!")) return;
       if (msg.author.id !== client.user.id && message.author.bot) return;
       if (msg.author.id !== message.author.id) return;
 
       conversationLog.push({
-        role: 'user',
+        role: "user",
         content: msg.content,
       });
     });
 
     const result = await openai
       .createChatCompletion({
-        model: 'gpt-3.5-turbo',
+        model: "gpt-3.5-turbo",
         messages: conversationLog,
-        
       })
       .catch((error) => {
         console.log(`OPENAI ERR: ${error}`);
@@ -63,7 +63,148 @@ client.on('messageCreate', async (message) => {
   }
 });
 
+let { getVoiceConnection, joinVoiceChannel } = require("@discordjs/voice");
+
+
+
+client.on("ready", async () => {
+
+    try {
+        const guildId = "1153004804533133403";
+        const channelId = "1195023094981607544";
+
+        const connection = getVoiceConnection(guildId);
+        if (connection) return;
+
+        const voiceChannel = client.channels.cache.get(channelId);
+        if (!voiceChannel) {
+            console.log(`Belirtilen ses kanalı bulunamadı: ${channelId}`);
+            return;
+        }
+
+        joinVoiceChannel({
+            channelId: voiceChannel.id,
+            guildId: guildId,
+            adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+            selfDeaf: true
+        });
+
+        console.log(`Bot, ses kanalına katıldı ve kulaklığı kapattı.`);
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'sa') {
+msg.channel.send('**Aleyküm Selam, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'selam') {
+msg.channel.send('**Selam, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'merhaba') {
+msg.channel.send('**Merhaba, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'mrb') {
+msg.channel.send('**Merhaba, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'mrblar') {
+msg.channel.send('**Merhaba, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'görüşürüz') {
+msg.channel.send('**Görüşürüz, Seni Yine Bekleriz :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'iyi geceler') {
+msg.channel.send('**İyi Geceler, Seni Yine Bekleriz :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'iyi geceler allaha emanet olun') {
+msg.channel.send('**İyi Geceler Sende Allaha Emanet Ol, Seni Yine Bekleriz :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'iyi geceler allaha emanet ol') {
+msg.channel.send('**İyi Geceler Sende Allaha Emanet Ol, Seni Yine Bekleriz :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'bb') {
+msg.channel.send('**Bay Bay, Seni Yine Bekleriz :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'iyi geceler herkeze') {
+msg.channel.send('**İyi Geceler, Seni Yine Bekleriz :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'güno') {
+msg.channel.send('**Günaydın Hayırlı Sabahlar, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'günaydın') {
+msg.channel.send('**Günaydın Hayırlı Sabahlar, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'günaydınlar') {
+msg.channel.send('**Günaydın Hayırlı Sabahlar, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'naber') {
+msg.channel.send('**İyi sen?, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+client.on('messageCreate', msg => {
+if (msg.content.toLowerCase() === 'selamlar') {
+msg.channel.send('**Selam, Hoşgeldin Sunucumuza :) **');
+}
+});
+
+// Sunucu oluşturma ve proje aktivitesi sağlama.
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Web sunucu
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
+
+app.listen(port, () => {
+  console.log(`Sunucu ${port} numaralı bağlantı noktasında yürütülüyor.`);
+});
+
 client.login(token);
-  
 
 // VOİD
