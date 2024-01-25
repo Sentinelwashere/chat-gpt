@@ -62,38 +62,6 @@ client.on("messageCreate", async (message) => {
   }
 });
 
-let { getVoiceConnection, joinVoiceChannel } = require("@discordjs/voice");
-
-
-
-client.on("ready", async () => {
-
-    try {
-        const guildId = "1153004804533133403";
-        const channelId = "1195023094981607544";
-
-        const connection = getVoiceConnection(guildId);
-        if (connection) return;
-
-        const voiceChannel = client.channels.cache.get(channelId);
-        if (!voiceChannel) {
-            console.log(`Belirtilen ses kanalı bulunamadı: ${channelId}`);
-            return;
-        }
-
-        joinVoiceChannel({
-            channelId: voiceChannel.id,
-            guildId: guildId,
-            adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-            selfDeaf: true
-        });
-
-        console.log(`Bot, ses kanalına katıldı ve kulaklığı kapattı.`);
-    } catch (error) {
-        console.error(error);
-    }
-});
-
 client.on('messageCreate', msg => {
 if (msg.content.toLowerCase() === 'sa') {
 msg.channel.send('**Aleyküm Selam, Hoşgeldin Sunucumuza :) **');
